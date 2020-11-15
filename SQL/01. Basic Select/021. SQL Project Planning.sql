@@ -4,3 +4,9 @@ SELECT START_DATE, END_DATE FROM
 (SELECT START_DATE, END_DATE, ROW_NUMBER() OVER(ORDER BY END_DATE) ROWNUMBER, END_DATE - ROW_NUMBER() 
  OVER (ORDER BY END_DATE) NEW_END_DATE FROM PROJECTS) 
  TEMP GROUP BY TEMP.NEW_END_DATE)) ORDER BY DIFF, START_DATE;
+
+ 
+ OR
+ 
+ select min(start_date), min(start_date) + count(*) from 
+ (select * from projects order by start_date) group by start_date - rownum order by count(*), min(start_date) ;
